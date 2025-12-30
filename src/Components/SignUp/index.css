@@ -1,0 +1,131 @@
+main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+   
+.signup-page{
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+}
+@media screen and (max-width:768px){
+  .signup-page{
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+  }
+}
+   
+  .signup-container {
+    width: 50%;
+    max-width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+   
+  .signup-form{
+    width: 100%;
+  }
+   
+    .signup-form input[type='text'],
+    .signup-form input[type='email'],
+    .signup-form input[type='phone'],
+    .signup-form input[type='password'] {
+      width: 95%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+   
+    .signup-form input[type='submit'] {
+      width: 100%;
+      background-color: blue;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+   
+    /* .signup-form input[type='submit']:hover {
+      background-color: #FDA339;
+    } */
+   
+    .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+   
+    p {
+      text-align: center;
+    }
+   
+    p button {
+      background: none;
+      border: none;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+   
+    p button:hover {
+      text-decoration: none;
+    }
+   
+    /* Responsive CSS */
+   
+    @media screen and (max-width: 600px) {
+      .signup-form {
+        max-width: 100%;
+      }
+    }
+   
+  .logo-container{
+      display: flex;  
+      align-items: center;
+      width: 45%;
+     justify-content:flex-end;
+     gap:30px;
+  }
+  @media screen and (max-width:768px) {
+    .logo-container{
+       width:100%;
+       justify-content:center;
+       margin-bottom:20px;
+    }
+    .speakNchatLogo{
+      height:100px;
+      width:180px;
+    }
+    .signup-container{
+      width:70%;
+    }
+     
+    
+  }
+  
+  .text-logo{
+      margin-top: 150px;
+      height:250px;
+  }
+   
+  .hr-line{
+      background-color: grey;
+      width: 1px;
+      height: 100%;
+  }
+  @media screen and (max-width:768px){
+    .hr-line{
+      display:none;
+    }
+  }

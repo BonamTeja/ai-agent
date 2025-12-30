@@ -1,0 +1,593 @@
+.mainPageBackgroundContainer {
+  display: flex;
+}
+.mainPleftSectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  border-right: 2px solid #b2beb5;
+  width: 25%;
+  height: calc(100vh - 80px);
+}
+@media screen and (max-width: 768px) {
+  .mainPleftSectionContainer {
+    display: none;
+  }
+}
+
+.logoContainer {
+  display: flex;
+  margin-bottom: 0px;
+}
+.logoProp {
+  height: 50%;
+}
+.logoTextprop {
+  margin-top: 10px;
+  height: 100px;
+}
+.loginPName {
+  margin-right: 40px;
+}
+@media screen and (max-width: 768px) {
+  .loginPName {
+    margin-right: 20px;
+  }
+}
+
+.CommandsContainer {
+  border: 1px solid #b2beb5;
+  padding: 13px;
+  width: 95%;
+  margin-top: 0px;
+  height: 70%;
+}
+@media screen and (min-width: 1700px) {
+  .CommandsContainer {
+    width: 350px;
+  }
+}
+
+.CommandBoxHeading {
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 500;
+}
+.CommandInput {
+  width: 250px;
+  margin-left: 20px;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.search-input {
+  padding: 8px;
+  outline: none;
+  border: 1px solid #909090;
+  line-height: 15px;
+  width: 98%;
+}
+
+.search-input::placeholder {
+  color: #909090;
+}
+
+.search-button {
+  border: none;
+  cursor: pointer;
+  border: 1px solid #909090;
+  width: 33px;
+  line-height: 15px;
+  padding: 3px;
+  width: 50px;
+}
+
+.search-icon {
+  display: inline-block;
+  width: 20px;
+  height: 21px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+details {
+  margin-bottom: 8px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.mainPrightSectionContainer {
+  width: 75%;
+}
+@media screen and (max-width: 768px) {
+  .mainPrightSectionContainer {
+    width: 100%;
+  }
+}
+
+.mainPrightSectionTopBar {
+  border-bottom: 2px solid #b2beb5;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (max-width: 768px) {
+  .mainPrightSectionTopBar {
+    display: none;
+  }
+}
+.signoutButton {
+  background-color: blue;
+  outline: none;
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.signoutButton:hover {
+  background-color: aqua;
+  color: black;
+}
+
+.rightSectionBottomContainer {
+  padding: 30px;
+}
+.mainPtopInputContainer {
+  width: 95%;
+  height: 90px;
+  outline: black;
+  border: 1px solid black;
+  padding: 15px;
+  font-size: 20px;
+  margin-top: 8px;
+}
+.mainPbuttonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+  padding-right: 10px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .mainPbuttonsContainer {
+    gap: 5px;
+    padding-right: 0px;
+    margin-left: 10px;
+  }
+}
+.button {
+  text-align: center;
+  width: 70px;
+  height: 40px;
+  outline: none;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: aqua;
+  color: black;
+}
+.startButton {
+  background-color: red;
+}
+.generate {
+  background-color: black;
+  color: #fff;
+  width: 200px !important;
+}
+.generate:hover {
+  background-color: aqua;
+  color: black;
+}
+.userinfo {
+  background-color: black;
+  color: #fff;
+  width: 200px !important;
+  margin-left: 10px;
+}
+.userinfo:hover {
+  background-color: aqua;
+  color: black;
+}
+.generateLink {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.generateLinkPop {
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  height: 300px;
+  width: 600px;
+}
+@media screen and (max-width: 768px) {
+  .generateLinkPop {
+    width: 300px;
+    left: 50%;
+  }
+}
+
+.userLink {
+  border: 1px solid red;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  position: relative;
+}
+
+.userLink span {
+  position: absolute;
+  right: 10px;
+}
+.userLink span:hover {
+  cursor: pointer;
+}
+.generateLinkPop p {
+  text-align: center;
+}
+
+.generateLinkPop button {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 45%;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.generateLinkPop button:hover {
+  background-color: #555;
+}
+
+/* Add styles for the overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 9998; /* Ensure it's below the popup */
+}
+
+.stopButton {
+  background-color: green;
+}
+.resetButton {
+  background-color: blue;
+}
+.mainPbottomInputContainer {
+  width: 95%;
+  height: 150px;
+  outline: black;
+  border: 1px solid black;
+  padding: 15px;
+  font-size: 20px;
+  margin-top: 40px;
+}
+
+.logIcon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+.mobilelogo {
+  height: 50px;
+  width: 80px;
+}
+@media screen and (min-width: 768px) {
+  .mobilelogo {
+    display: none;
+  }
+}
+.mainPrightSectionTopBarInfo {
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+}
+
+.search-container-mobile {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.addCommandContainer {
+  display: flex;
+  justify-content: flex-end; /* Center the button horizontally */
+  width: 100%;
+}
+.addCommandButton {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  width: 70px;
+  border: none;
+  outline: none;
+}
+.addCommandButton:hover {
+  background-color: aqua;
+  cursor: pointer;
+  color: black;
+}
+
+.commandsInputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  margin-left: 15px;
+}
+.popUpInputFiled {
+  width: 90%;
+}
+.commandsPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 9998;
+  display: flex;
+}
+.mobileAddButton {
+  padding-top: 10px;
+  margin-top: 0px;
+}
+
+@media screen and (min-width: 768px) {
+  .mobileAddButton {
+    display: none;
+  }
+}
+.popUpInputFiled {
+  height: 30px;
+}
+.commandsgenerateLinkPop {
+  position: fixed;
+  top: 50%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  height: 255px;
+  width: 400px;
+}
+@media screen and (max-width: 768px) {
+  .commandsgenerateLinkPop {
+    width: 300px;
+    left: 50%;
+  }
+}
+.commandsgenerateLinkPop h2 {
+  text-align: center;
+}
+.commandLabelText {
+  font-family: "Roboto";
+  font-size: 20px;
+}
+.commandBtnsCont {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-right: 30px;
+  margin-top: 15px;
+}
+.commandCloseBtn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+}
+.commandCloseBtn:hover {
+  background-color: #555;
+  cursor: pointer;
+}
+.userDataInfoPopupContainer {
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  height: 500px;
+  width: 600px;
+}
+@media screen and (max-width: 768px) {
+  .userDataInfoPopupContainer {
+    width: 330px;
+    left: 50%;
+    height: 680px;
+  }
+}
+.userDataInfoClosebtn {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 45%;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.userDataInfoClosebtn:hover {
+  background-color: #555;
+}
+.userDataInfoSaveButton {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 30%;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.userDataInfoSaveButton:hover {
+  background-color: #555;
+}
+.userDataInfoClearButton {
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 60%;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.userDataInfoClearButton:hover {
+  background-color: #555;
+}
+@media screen and (max-width: 768px) {
+  .userDataInfoSaveButton {
+    left: 15%;
+  }
+  .userDataInfoClosebtn {
+    left: 38%;
+  }
+  .userDataInfoClearButton {
+    left: 62%;
+  }
+}
+
+.userInfoPopUpHeading {
+  text-align: center;
+}
+.userInfoFromMainContainer {
+  padding-left: 30px;
+  padding-right: 5px;
+}
+.userInfoLabelText {
+  display: inline-block;
+  font-size: 20px;
+  width: 150px;
+}
+@media screen and (max-width: 768px) {
+  .userInfoLabelText {
+    width: 200px;
+    margin-bottom: 3px;
+  }
+}
+.userInfoInputField {
+  width: 250px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+}
+.userInfoInputLabContainer {
+  margin-bottom: 10px;
+}
+.popup {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1;
+  bottom: 160px;
+  right: 110px;
+}
+@media screen and (max-width: 768px) {
+  .popup {
+    bottom: -150px;
+    right: 95px;
+  }
+}
+
+#sendButton:hover + #popup {
+  display: block;
+}
+.recordingIndicator {
+  font-size: 18px;
+  font-weight: bold;
+  color: red;
+}
+
+.blink {
+  animation: blink-animation 1s infinite;
+}
+
+@keyframes blink-animation {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.btnTextContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.appTitle {
+  font-family: "Bree serif";
+  font-size: 25px;
+  margin-left: 30px;
+}
+
+.questions {
+  overflow-y: scroll;
+  flex-grow: 1;
+  margin-top: 2px;
+  margin-bottom: 0px;
+}
+
+.MobileCommandsContainer {
+  border: 1px solid #b2beb5;
+  padding: 13px;
+  width: 95%;
+  margin-top: 0px;
+}
+@media screen and (min-width: 768px) {
+  .MobileCommandsContainer {
+    display: none !important;
+  }
+}

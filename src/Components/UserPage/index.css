@@ -1,0 +1,172 @@
+.mainBackgroundContainer{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+
+}
+
+.leftSectionContainer{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:30px;
+    border-right:2px solid #B2BEB5;
+    width:25%;
+    height:100vh;
+}
+@media screen and (max-width:768px){
+    .leftSectionContainer{
+        display:none;
+    }
+}
+.heading{
+    font-family:"Roboto";
+    font-size:30px;
+}
+.headingText{
+    font-family:"Roboto";
+    font-size:20px;
+    font-weight:500;
+}
+
+
+.rightSectionContainer{
+    width:35%;
+    padding:10px;
+    border:1px solid black;
+    height:250px;
+    overflow-y:auto;
+    font-size:20px;
+    
+    
+}
+@media screen and (max-width:768px) {
+    .rightSectionContainer{
+        width:60%;
+    }
+    
+}
+@media screen and (max-width:362px){
+    .rightSectionContainer{
+        width:80%;
+        height:400px;
+    }
+}
+
+.rightSectionTopBar{
+    border-bottom:2px solid #B2BEB5;
+    height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+}
+.signoutButton{
+    background-color:blue;
+    outline:none;
+    border:none;
+    color:#fff;
+    padding:12px;
+    border-radius:10px;
+}
+.rightSectionBottomContainer{
+    padding:30px;
+
+}
+.topInputContainer{
+    width:95%;
+    height:90px;
+    outline:black;
+    border:1px solid black;
+    padding:15px;
+    font-size:20px;
+}
+.buttonsContainer{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+    margin-bottom:30px;
+    padding-right:10px;
+}
+@media screen and (max-width:500px){
+    .buttonsContainer{
+        gap:5px;
+        padding-right:0px;
+    }
+}
+.button{
+    text-align:center;
+    width:70px;
+    height:40px;
+    outline:none;
+    border:none;
+    color:#fff;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.bottomInputContainer{
+    width:95%;
+    height:150px;
+    outline:black;
+    border:1px solid black;
+    padding:15px;
+    font-size:20px;
+    margin-top:100px;
+}
+.userPageUserInfoMainCont{
+    width:100%;
+    
+}
+.userPageUserInfo{
+    width:200px;
+    text-align:right;
+}
+.eachuserInfocont{
+    display:flex;
+    align-items:center;
+}
+.mobileViewContainer{
+    text-align:center;
+    margin-top:55px;
+}
+.mobilelogoProp{
+    height:80px;
+    width:100px;
+}
+.mobileViewline {
+    height: 1px; /* Set the height of the line */
+    border: none; /* Remove default border */
+    background-color: black; /* Set the color of the line */
+    margin: 0; /* Remove default margins */
+}
+
+@media screen and (min-width:768px) {
+    .mobileViewContainer{
+        display:none;
+    }
+    .mobileViewline{
+        display:none;
+    }
+}
+.mobileUserInfoContainer{
+    display:flex;
+    flex-wrap:wrap;
+    width:100%;
+    display:none;
+    
+}
+@media screen and (min-width:768px){
+    .mobileUserInfoContainer{
+        display:none;
+    }
+}
+.mobileeachuserInfocont{
+    display:flex;
+    align-items:center;
+    margin-left:10px;
+    
+}
+.mobileuserPageUserInfo{
+    font-size:15px;
+}
