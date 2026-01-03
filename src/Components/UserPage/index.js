@@ -1,5 +1,6 @@
 
 import "./index.css"
+import createDOMPurify from 'dompurify';
 
 import { MdPerson } from "react-icons/md";
 import { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ import axios from "axios";
 import { ref, onValue } from "firebase/database";
 import { database } from '../../Firebase';
 import { useParams } from 'react-router-dom';
+const DOMPurify = typeof window !== 'undefined' ? createDOMPurify(window) : null;
 const UserPage = () => {
   // const userId = localStorage.getItem('userInfo')
   const { userId } = useParams();
@@ -27,31 +29,41 @@ const UserPage = () => {
 
   useEffect(() => {
     const dataRef = ref(database, `data${userId}`);
-    onValue(dataRef, (snapshot) => {
+    const unsubData = onValue(dataRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        // Assuming the data structure includes a property named yourData
         setDataFromDatabase(data.chatInputData);
       }
     });
+
     const textRef = ref(database, `text${userId}`);
-    onValue(textRef, (snapshot) => {
+    const unsubText = onValue(textRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        // Assuming the data structure includes a property named yourData
         setDataFromDatabaseMic(data.transcript);
       }
     });
+
     const dataInfo = ref(database, `userDataInfo${userId}`);
-    onValue(dataInfo, (snapshot) => {
+    const unsubInfo = onValue(dataInfo, (snapshot) => {
       const data = snapshot.val();
-      // console.log(data)
       if (data) {
         setuserDataInfo(data.userFormData);
       }
-    })
+    });
 
-  }, []);
+    // Cleanup listeners when component unmounts to avoid duplicate listeners
+    return () => {
+      try {
+        if (typeof unsubData === 'function') unsubData();
+        if (typeof unsubText === 'function') unsubText();
+        if (typeof unsubInfo === 'function') unsubInfo();
+      } catch (err) {
+        // fallback: silently ignore
+      }
+    };
+
+  }, [userId]);
 
 
   return (
@@ -108,7 +120,7 @@ const UserPage = () => {
 
         {/* <div style={{ border: "1px solid red", padding: "10px",fontSize: "18px",}}> */}
         {dataFromDatabaseMic && <p>{dataFromDatabaseMic}</p>}
-        {dataFromDatabase && <p><span dangerouslySetInnerHTML={{ __html: dataFromDatabase }} /></p>}
+        {dataFromDatabase && <p><span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(dataFromDatabase) }} /></p>}
         {/* </div> */}
 
 

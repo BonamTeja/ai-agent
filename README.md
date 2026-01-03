@@ -86,10 +86,32 @@ Setup:
 3. Set the frontend env variable to the function URL (example):
 
 	In your local .env: REACT_APP_CHAT_FUNCTION_URL="https://us-central1-<PROJECT>.cloudfunctions.net/chat"
+	Optionally set the streaming endpoint URL:
+
+	REACT_APP_CHAT_STREAM_URL="https://us-central1-<PROJECT>.cloudfunctions.net/chatStream"
 
 4. Restart the React dev server. The MainPage now exposes a "ChatGPT" button that sends the current text / transcript to the function and displays the assistant reply.
+
+5. Install new dependencies locally (DOMPurify):
+
+	npm install
 
 Security notes:
 - Rotate any leaked API keys immediately. Do not commit keys to git.
 - Add rate-limiting in production and monitor usage to avoid unexpected charges.
+
+### Streaming (SSE) support
+
+An SSE endpoint `chatStream` was added to stream partial replies from OpenAI for a better UX.
+
+Usage:
+
+1. Deploy functions as before.
+2. Call the streaming endpoint (GET) with URL-encoded query params:
+
+	https://us-central1-<PROJECT>.cloudfunctions.net/chatStream?userId=<USER>&message=<URL_ENCODED_MESSAGE>
+
+3. In the frontend we use EventSource to receive partial `data` events containing JSON objects `{ delta: "text" }` and a final `{ done: true }` event. The function also writes the final assistant output to the Realtime DB at `data{userId}`.
+
+Note: The message is sent via query string for the stream endpoint (GET); avoid sending very large messages. If you expect long messages, the non-streaming POST endpoint `/chat` is still available.
 
