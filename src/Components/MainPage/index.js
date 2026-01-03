@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
 import "./index.css";
@@ -23,6 +23,7 @@ const MainPage = () => {
   const [buttonsPopUp, setButtonsPopUp] = useState(false);
   const [skills, setSkills] = useState(["react"]);
   const [isRecording, setIsRecording] = useState(false);
+  const eventSourceRef = useRef(null);
 
 
 
@@ -97,16 +98,17 @@ const MainPage = () => {
   //     return null
   //   }
   // });
-  const fil = commandss
-  ?.filter((comm) => skills.includes(comm?.category))
-  .map((comm) => comm.value)
+  const fil = commandss?.filter((comm) => skills.includes(comm?.category)).map((comm) => comm.value) || [];
+  const filArray = fil.flatMap((item) => item);
 
-  const filArray = fil.flatMap(item => item);
-
-  const filteredCommands =
-    filArray?.filter((command) =>
-      command?.command?.toLowerCase().includes(searchInput.toLowerCase())
-    ) || filArray;
+  // Memoize filtered commands to avoid recalculating on every render
+  const filteredCommands = useMemo(() => {
+    if (!filArray) return [];
+    const term = searchInput.toLowerCase();
+    return filArray.filter((command) =>
+      command?.command?.toLowerCase().includes(term)
+    );
+  }, [filArray, searchInput]);
 
   const handleSignOut = () => {
     const user = localStorage.getItem("userInfo");
@@ -169,6 +171,24 @@ const MainPage = () => {
       setButtonsPopUp(false);
     }, 600);
   };
+
+  // Debounce writing typed `text` to Firebase to avoid flooding DB with every keystroke
+  const writeTimer = useRef(null);
+  useEffect(() => {
+    if (!userId) return;
+    // If text is empty, write empty chatInputData quickly
+    if (writeTimer.current) clearTimeout(writeTimer.current);
+    writeTimer.current = setTimeout(() => {
+      const chatInputData = (text || "").trim();
+      const chatRef = ref(database, `data${userId}`);
+      set(chatRef, { chatInputData }).catch((error) => {
+        console.error("Error adding data to Firebase: ", error);
+      });
+    }, 450);
+    return () => {
+      if (writeTimer.current) clearTimeout(writeTimer.current);
+    };
+  }, [text, userId]);
 
   const handleResetButton = () => {
     const chatRef = ref(database, `data${userId}`);
@@ -295,24 +315,71 @@ const MainPage = () => {
   };
 
   // ChatGPT / OpenAI integration: POST to Firebase Function
+  // ChatGPT integration: streaming approach using EventSource
   const sendToChatGPT = async () => {
     const message = (text || transcript || '').trim();
     if (!message) return;
     setButtonsPopUp(true);
-    try {
-      const url = process.env.REACT_APP_CHAT_FUNCTION_URL;
-      if (!url) throw new Error('Chat function URL not configured (REACT_APP_CHAT_FUNCTION_URL)');
-      const response = await axios.post(url, { userId, message });
-      const assistant = response.data?.assistant || '';
-      setText(assistant);
-      // Function writes assistant response to Realtime DB as well
-    } catch (error) {
-      console.error('ChatGPT call failed', error);
-      alert('Error calling ChatGPT function');
-    } finally {
+
+    const streamUrl = process.env.REACT_APP_CHAT_STREAM_URL || process.env.REACT_APP_CHAT_FUNCTION_URL?.replace('/chat', '/chatStream');
+    if (!streamUrl) {
+      alert('Chat stream URL not configured (REACT_APP_CHAT_STREAM_URL)');
       setButtonsPopUp(false);
+      return;
     }
+
+    const url = `${streamUrl}?userId=${encodeURIComponent(userId)}&message=${encodeURIComponent(message)}`;
+
+    let eventSource;
+    try {
+      eventSource = new EventSource(url);
+      eventSourceRef.current = eventSource;
+    } catch (err) {
+      console.error('EventSource failed to open', err);
+      alert('Streaming not supported or failed to connect');
+      setButtonsPopUp(false);
+      return;
+    }
+
+    let acc = '';
+
+    eventSource.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        if (data.delta) {
+          acc += data.delta;
+          setText(acc);
+        }
+        if (data.done) {
+          try { eventSourceRef.current?.close(); } catch(e){}
+          eventSourceRef.current = null;
+          setButtonsPopUp(false);
+        }
+        if (data.error) {
+          console.error('Stream error:', data.error);
+        }
+      } catch (err) {
+        console.error('Error parsing stream message', err);
+      }
+    };
+
+    eventSource.onerror = (err) => {
+      console.error('EventSource error', err);
+      try { eventSourceRef.current?.close(); } catch(e){}
+      eventSourceRef.current = null;
+      setButtonsPopUp(false);
+    };
   };
+
+  // cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (eventSourceRef.current) {
+        try { eventSourceRef.current.close(); } catch (e) {}
+        eventSourceRef.current = null;
+      }
+    };
+  }, []);
 
   const handleStartButton = () => {
     SpeechRecognition.startListening({
@@ -372,8 +439,9 @@ const MainPage = () => {
           </button>
         </div>
         <div className="CommandsContainer" style={{ overflowY: "scroll" }}>
-          {filteredCommands?.map((item) => (
+          {filteredCommands?.map((item, idx) => (
             <li
+              key={item?.command || idx}
               style={{ cursor: "pointer" }}
               onClick={() => handleCommand(item)}
             >
@@ -411,11 +479,8 @@ const MainPage = () => {
               />
             </div>
             <ul className="questions">
-            {filteredCommands?.map((item) => (
-              <li
-                style={{ cursor: "pointer" }}
-                onClick={() => handleCommand(item)}
-              >
+            {filteredCommands?.map((item, idx) => (
+              <li key={item?.command || idx} style={{ cursor: "pointer" }} onClick={() => handleCommand(item)}>
                 {item.command}
               </li>
             ))}
@@ -454,7 +519,7 @@ const MainPage = () => {
             placeholder="Type or Speak..."
             type="text"
             className="mainPbottomInputContainer"
-            onChange={(e) => handleSendButton(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
           />
           <div className="mainPbuttonsContainer">
             {listening ?
