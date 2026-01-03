@@ -68,3 +68,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## ChatGPT / OpenAI integration (Firebase Functions)
+
+This project includes a Firebase Cloud Function that proxies requests to the OpenAI Chat API so the API key stays secret (do not put API keys in client code).
+
+Setup:
+
+1. In your terminal, set the OpenAI API key in Firebase Functions config:
+
+	firebase functions:config:set openai.key="YOUR_OPENAI_KEY" openai.model="gpt-3.5-turbo"
+
+2. Deploy functions:
+
+	firebase deploy --only functions
+
+3. Set the frontend env variable to the function URL (example):
+
+	In your local .env: REACT_APP_CHAT_FUNCTION_URL="https://us-central1-<PROJECT>.cloudfunctions.net/chat"
+
+4. Restart the React dev server. The MainPage now exposes a "ChatGPT" button that sends the current text / transcript to the function and displays the assistant reply.
+
+Security notes:
+- Rotate any leaked API keys immediately. Do not commit keys to git.
+- Add rate-limiting in production and monitor usage to avoid unexpected charges.
+

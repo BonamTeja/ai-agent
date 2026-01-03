@@ -10,6 +10,21 @@
   width: 25%;
   height: calc(100vh - 80px);
 }
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: "Roboto";
+  font-size: 18px;
+  cursor: pointer;
+}
+.filterDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  /* margin-bottom: 20px; */
+}
 @media screen and (max-width: 768px) {
   .mainPleftSectionContainer {
     display: none;

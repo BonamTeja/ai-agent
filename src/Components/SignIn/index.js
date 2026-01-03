@@ -1,175 +1,179 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
-import "./index.css"
-import Cookies from 'js-cookie'
+import { useNavigate } from "react-router-dom";
+import "./index.css";
+
 export const loginContext = createContext();
- 
+
 const SignIn = () => {
   const navigate = useNavigate();
-  const initialState = { Id: "", email: "", password: "" };
+
+  const initialState = { email: "", password: "" };
+
   const [loginData, setLoginData] = useState(initialState);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]);              // ARRAY of users
+  const [dataWithID, setDataWithID] = useState({});  // OBJECT with IDs
   const [loginErrors, setLoginErrors] = useState({});
-  const [dataWithID,setDataWithID] = useState({});
   const [loginStatus, setLoginStatus] = useState("");
- 
+
+  // 🔹 Fetch users from Firebase
   useEffect(() => {
     axios
-      .get("https://gallant-69c58-default-rtdb.firebaseio.com/users.json")
+      .get("https://ai-agent-edb5b-default-rtdb.firebaseio.com/users.json")
       .then((response) => {
         const fetchedData = response.data || {};
+
         setDataWithID(fetchedData);
-        let data = Object.values(fetchedData);
-        setData(data);
-      });
+
+        // ✅ Convert object → array
+        const usersArray = Object.values(fetchedData);
+        console.log("Fetched Users Array:",usersArray, JSON.parse(JSON.stringify(fetchedData)));
+        setData(usersArray);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
+  // 🔹 Redirect if already logged in
   useEffect(() => {
-    // Check if the user is already logged in
     const isLoggedIn = localStorage.getItem("userInfo");
-    // const isLoggedIn = Cookies.get("userInfo");
-    // const isLoggedIn = sessionStorage.getItem("userInfo");
-    console.log(isLoggedIn)
-
     if (isLoggedIn) {
       navigate("/mainPage");
-      console.log("Working");
-    }else{
-      navigate("/login")
     }
   }, [navigate]);
 
- 
-  const handleData = (event) => {
+  // 🔹 Input handler
+  const handleData = (e) => {
     setLoginData({
       ...loginData,
-      [event.target.name]: event.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
+  // 🔹 Validation
   const validateForm = () => {
-    let isValid = true;
     let errors = {};
-    if (loginData.email === "") {
+    let isValid = true;
+
+    if (!loginData.email) {
       errors.email = "Enter email to login";
       isValid = false;
     }
-    if (loginData.password === "") {
+    if (!loginData.password) {
       errors.password = "Enter password to login";
       isValid = false;
     }
+
     setLoginErrors(errors);
     return isValid;
   };
- 
-  const checkData = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      const itemExist = data.findIndex(
-        (item) => item.email === loginData.email
 
-      );
-      //console.log(data[itemExist])
-      if (itemExist > -1) {
-        if (
-          data[itemExist].email === loginData.email &&
-          data[itemExist].password === loginData.password
-        ) { 
+  console.log("Login Data:", loginData, data);
 
-          // const getUser = dataWithID.filter((each) => each.email === loginData.email);
+  // 🔹 Login check
+  const checkData = (e) => {
+    e.preventDefault();
 
-          // console.log(getUser);
-          const getUser = Object.entries(dataWithID)
-            .filter(([id, user]) => user.email === loginData.email)
-            .map(([id, user]) => ({ id, ...user }));
+    if (!validateForm()) return;
 
-           console.log(getUser)
-           const id = getUser[0].id;
-          // Cookies.set("userInfo",id);
-          // sessionStorage.setItem("userInfo",id)
-        // dispatch(editForm(data[itemExist]))
-        localStorage.setItem("userInfo",id);
-          setLoginData(initialState);
-          navigate("/mainPage");
-          // console.log(flag, "flag");
-        } else {
-          setLoginStatus("Password is incorrect, please enter the correct password");
-        }
-      } else {
-        setLoginStatus("User does not exist, please register");
-      }
+    // ✅ Find user by email
+    const user = data.find(
+      (item) => item.email === loginData.email
+    );
+
+    if (!user) {
+      setLoginStatus("User does not exist, please register");
+      return;
     }
-    //console.log(flag,'flag')
+
+    if (user.password !== loginData.password) {
+      setLoginStatus("Password is incorrect, please enter the correct password");
+      return;
+    }
+
+    // ✅ Get user ID from original object
+    const userEntry = Object.entries(dataWithID).find(
+      ([_, u]) => u.email === loginData.email
+    );
+
+    const id = userEntry?.[0];
+
+    localStorage.setItem("userInfo", id);
+    setLoginData(initialState);
+    navigate("/mainPage");
   };
-  const hideErrors = (event) => {
+
+  const hideErrors = (e) => {
     setLoginErrors({
       ...loginErrors,
-      [event.target.name]: "",
+      [e.target.name]: "",
     });
   };
- 
-  const checkErrors = (event) => {
-    if (event.target.value === "") {
+
+  const checkErrors = (e) => {
+    if (e.target.value === "") {
       setLoginErrors({
         ...loginErrors,
-        [event.target.name]: "Enter " + event.target.name,
+        [e.target.name]: "Enter " + e.target.name,
       });
     }
   };
- 
-  
-//   console.log(myId,'outside')
- 
+
   return (
     <React.Fragment>
       <main>
         <h1>Gallant</h1>
-      <div className="main-container">
-       <div class="login-container">
-         <form class="login-form" onSubmit={checkData}>
-           <div class="input-container">
-             <input
-               type="email"
-               class={`login-input login_page_username ${loginErrors?.email && 'border border-danger'}`}
-               placeholder="Username or Email"
-               onChange={handleData}
-               onFocus={hideErrors}
-               onBlur={checkErrors}
-               value={loginData.email}
-               name="email"
-             />
-             {loginErrors.email ? (
-               <small class="login-error">{loginErrors.email}</small>
-             ) : null}
-           </div>
-           <div class="input-container">
-             <input
-               type="password"
-               class={`login-input login_page_username ${loginErrors?.password && 'border border-danger'}`}
-               placeholder="Password"
-               onChange={handleData}
-               onFocus={hideErrors}
-               onBlur={checkErrors}
-               value={loginData.password}
-               name="password"
-             />
-             {loginErrors.password ? (
-               <small class="login-error">{loginErrors.password}</small>
-             ) : null}
-           </div>
-           {loginStatus && <p className="login-status">{loginStatus}</p>}
-           <input type="submit" class="login-submit" value="Login" />
-           
-         </form>
-       
-       </div>
-      </div>
+
+        <div className="main-container">
+          <div className="login-container">
+            <form className="login-form" onSubmit={checkData}>
+
+              <div className="input-container">
+                <input
+                  type="email"
+                  className={`login-input login_page_username ${
+                    loginErrors.email ? "border border-danger" : ""
+                  }`}
+                  placeholder="Username or Email"
+                  name="email"
+                  value={loginData.email}
+                  onChange={handleData}
+                  onFocus={hideErrors}
+                  onBlur={checkErrors}
+                />
+                {loginErrors.email && (
+                  <small className="login-error">{loginErrors.email}</small>
+                )}
+              </div>
+
+              <div className="input-container">
+                <input
+                  type="password"
+                  className={`login-input login_page_username ${
+                    loginErrors.password ? "border border-danger" : ""
+                  }`}
+                  placeholder="Password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={handleData}
+                  onFocus={hideErrors}
+                  onBlur={checkErrors}
+                />
+                {loginErrors.password && (
+                  <small className="login-error">{loginErrors.password}</small>
+                )}
+              </div>
+
+              {loginStatus && (
+                <p className="login-status">{loginStatus}</p>
+              )}
+
+              <input type="submit" className="login-submit" value="Login" />
+            </form>
+          </div>
+        </div>
       </main>
- 
- 
     </React.Fragment>
   );
 };
- 
+
 export default SignIn;

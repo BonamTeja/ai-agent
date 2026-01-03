@@ -21,6 +21,7 @@ const MainPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const [buttonsPopUp, setButtonsPopUp] = useState(false);
+  const [skills, setSkills] = useState(["react"]);
   const [isRecording, setIsRecording] = useState(false);
 
 
@@ -54,37 +55,58 @@ const MainPage = () => {
     }
   }, [navigate]);
 
-  const handleBeforeUnload = (event) => {
-    try {
-      const navigationTiming = performance.getEntriesByType("navigation")[0];
-      if (
-        navigationTiming.type !== "reload" &&
-        navigationTiming.type !== "back_forward" &&
-        navigationTiming.type !== "navigate"
-      ) {
-        // If the page is being unloaded (i.e., the browser window is being closed), clear localStorage
-        localStorage.clear();
+  // Add beforeunload listener with cleanup to avoid leaks
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      try {
+        const navigationTiming = performance.getEntriesByType('navigation')[0];
+        if (
+          navigationTiming.type !== 'reload' &&
+          navigationTiming.type !== 'back_forward' &&
+          navigationTiming.type !== 'navigate'
+        ) {
+          // If the page is being unloaded (i.e., the browser window is being closed), clear localStorage
+          localStorage.clear();
+        }
+      } catch (error) {
+        console.error('An error occurred:', error);
       }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+    };
 
-  window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
 
-  const chatRef = ref(database, `text${userId}`);
-  set(chatRef, { transcript })
-    .then(() => {
-      console.log("Added Successfully to Firebase");
-    })
-    .catch((error) => {
-      console.error("Error adding data to Firebase: ", error);
-    });
+  // write transcript to DB only when it changes
+  useEffect(() => {
+    if (!userId) return;
+    const chatRef = ref(database, `text${userId}`);
+    set(chatRef, { transcript })
+      .then(() => {
+        // transcript saved
+      })
+      .catch((error) => {
+        console.error('Error adding data to Firebase: ', error);
+      });
+  }, [transcript, userId]);
+
+  // const fil = commandss?.filter((comm) => {
+  //   if(skills.includes(comm?.category)) {
+  //     return comm?.value
+  //   } else {
+  //     return null
+  //   }
+  // });
+  const fil = commandss
+  ?.filter((comm) => skills.includes(comm?.category))
+  .map((comm) => comm.value)
+
+  const filArray = fil.flatMap(item => item);
 
   const filteredCommands =
-    commandss?.filter((command) =>
-      command.command.toLowerCase().includes(searchInput.toLowerCase())
-    ) || commandss;
+    filArray?.filter((command) =>
+      command?.command?.toLowerCase().includes(searchInput.toLowerCase())
+    ) || filArray;
 
   const handleSignOut = () => {
     const user = localStorage.getItem("userInfo");
@@ -96,7 +118,7 @@ const MainPage = () => {
 
   const formatTextToHTML = (text) => {
     let sentences = text.split(/[.\n]+/).filter(Boolean);
-    let formattedHTML = `<ul>${sentences.map(sentence => `<li>${sentence.trim()}</li>`).join("")}</ul>`;
+    let formattedHTML = `<div>${sentences.map(sentence => `<p>${sentence.trim()}</p>`).join("")}</div>`;
     return formattedHTML;
   };
 
@@ -118,7 +140,8 @@ const MainPage = () => {
   //   }, 600);
   // };
 
-  const handleSendButton = () => {
+  const handleSendButton = (text) => {
+    setText(text);
     handleResetMicData();
     let chatInputData = text || transcript;
   
@@ -217,6 +240,32 @@ const MainPage = () => {
 
   const handleCommand = (item) => {
     setText(item.text);
+    handleResetMicData();
+    let chatInputData = item.text || transcript;
+  
+    // Function to check if string contains HTML tags
+    const containsHTML = (str) => /<\/?[a-z][\s\S]*>/i.test(str);
+  
+    // If 'text' is plain, convert it into structured HTML
+    if (!containsHTML(item.text) && item.text) {
+      chatInputData = formatTextToHTML(item.text);
+    }
+  
+    setButtonsPopUp(true);
+  
+    if (userId && chatInputData.trim() !== "") {
+      const chatRef = ref(database, `data${userId}`);
+      set(chatRef, { chatInputData })
+        .then(() => {})
+        .catch((error) => {
+          console.error("Error adding data to Firebase: ", error);
+        });
+    }
+  
+    SpeechRecognition.stopListening();
+    setTimeout(() => {
+      setButtonsPopUp(false);
+    }, 600);
   };
 
 
@@ -236,8 +285,33 @@ const MainPage = () => {
   };
 
   const saveTranscript = (trans) => {
-    saveTranscript(trans);
+    // Save transcript to realtime DB once
+    if (!userId) return;
+    const chatRef = ref(database, `text${userId}`);
+    set(chatRef, { transcript: trans })
+      .then(() => {})
+      .catch((error) => console.error(error));
     console.log(trans);
+  };
+
+  // ChatGPT / OpenAI integration: POST to Firebase Function
+  const sendToChatGPT = async () => {
+    const message = (text || transcript || '').trim();
+    if (!message) return;
+    setButtonsPopUp(true);
+    try {
+      const url = process.env.REACT_APP_CHAT_FUNCTION_URL;
+      if (!url) throw new Error('Chat function URL not configured (REACT_APP_CHAT_FUNCTION_URL)');
+      const response = await axios.post(url, { userId, message });
+      const assistant = response.data?.assistant || '';
+      setText(assistant);
+      // Function writes assistant response to Realtime DB as well
+    } catch (error) {
+      console.error('ChatGPT call failed', error);
+      alert('Error calling ChatGPT function');
+    } finally {
+      setButtonsPopUp(false);
+    }
   };
 
   const handleStartButton = () => {
@@ -260,19 +334,40 @@ const MainPage = () => {
     SpeechRecognition.startListening({ continuous: true, language: "en-US" });
   };
 
+  const handleChange = (event) => {
+    const {name, checked} = event.target;
+    setSkills((prevSkills) => {
+    return checked
+      ? [...prevSkills, name]
+      : prevSkills.filter((skill) => skill !== name);
+  });
+  }
+  console.log(skills, fil, 'name1234');
+
+
   return (
     <div className="mainPageBackgroundContainer">
       <div className="mainPleftSectionContainer">
         <h1 className="CommandBoxHeading">Questions</h1>
-        <div class="search-container">
+        <div className="filterDiv">
+          <span className="checkboxItem">
+            <input style={{cursor: "pointer"}} id="id-react" type="checkbox" name="react" onChange={handleChange} value="React" checked={skills.includes("react") } />
+            <label style={{cursor: "pointer"}} htmlFor="id-react">React</label>
+          </span>
+          <span className="checkboxItem">
+            <input style={{cursor: "pointer"}} id="id-node" type="checkbox" name="node" onChange={handleChange} value="Node" checked={skills.includes("node") } />
+            <label style={{cursor: "pointer"}} htmlFor="id-node">Node</label>
+          </span>
+        </div>
+        <div className="search-container">
           <input
             type="search"
             placeholder="Search"
-            class="search-input"
+            className="search-input"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
-          <button type="button" class="search-button">
+          <button type="button" className="search-button">
             <BsSearch className="search-icon" />
           </button>
         </div>
@@ -285,11 +380,11 @@ const MainPage = () => {
               {item.command}
             </li>
           ))}
-        </div>
+        </div> 
       </div>
       <div className="mainPrightSectionContainer">
         <div className="mainPrightSectionTopBar">
-          <h1 className="appTitle">Gallant</h1>
+          <h1 className="appTitle"></h1>
           <div className="mainPrightSectionTopBarInfo">
             {/* <MdPerson className="logIcon" /> */}
             {/* <h3 className="loginPName">{`${userName
@@ -306,7 +401,7 @@ const MainPage = () => {
             className="MobileCommandsContainer"
             style={{ height: "150px", display: "flex", flexDirection: "column" }}
           >
-            <div class="search-container-mobile">
+            <div className="search-container-mobile">
               <input
                 type="search"
                 placeholder="Search"
@@ -359,7 +454,7 @@ const MainPage = () => {
             placeholder="Type or Speak..."
             type="text"
             className="mainPbottomInputContainer"
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => handleSendButton(e.target.value)}
           />
           <div className="mainPbuttonsContainer">
             {listening ?
@@ -375,18 +470,21 @@ const MainPage = () => {
             
             }
            
-            <button
+            {/* <button
               id="sendButton"
               onClick={handleSendButton}
               className="stopButton button"
             >
               Send
-            </button>
+            </button> */}
             {buttonsPopUp && (
               <div className="popup" id="popup">
                 Chat Sent !
               </div>
             )}
+            <button onClick={sendToChatGPT} className="stopButton button">
+              ChatGPT
+            </button>
             <button onClick={handleResetButton} className="resetButton button">
               Reset
             </button>
