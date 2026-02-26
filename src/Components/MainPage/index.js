@@ -300,16 +300,6 @@ const MainPage = () => {
       });
   };
 
-  const saveTranscript = (trans) => {
-    // Save transcript to realtime DB once
-    if (!userId) return;
-    const chatRef = ref(database, `text${userId}`);
-    set(chatRef, { transcript: trans })
-      .then(() => {})
-      .catch((error) => console.error(error));
-    console.log(trans);
-  };
-
   // ChatGPT / OpenAI integration: POST to Firebase Function
   // ChatGPT integration: streaming approach using EventSource
   const sendToChatGPT = async () => {
@@ -376,19 +366,6 @@ const MainPage = () => {
       }
     };
   }, []);
-
-  const handleStartButton = () => {
-    SpeechRecognition.startListening({
-      continuous: true,
-      language: "en-IN",
-    });
-    setIsRecording(true);
-  };
-
-  const handleStopButton = () => {
-    SpeechRecognition.stopListening();
-    setIsRecording(false);
-  };
 
   const handleStartListening = () => {
     setText("")
