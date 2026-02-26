@@ -14,7 +14,7 @@ const MainPage = () => {
   const userId = localStorage.getItem("userInfo");
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
-  const [userName, setuserName] = useState("");
+  // const [userName, setuserName] = useState("");
   const [genPopUp, setGenPopUp] = useState(false);
   const [userLink, setUserLink] = useState("");
   const [linkCopied, setLinkCopied] = useState(false);
@@ -51,7 +51,7 @@ const MainPage = () => {
           console.log(fetchedData);
 
           const name = userExisitingData?.firstname;
-          setuserName(name);
+          // setuserName(name);
         });
     }
   }, [navigate]);
@@ -298,10 +298,6 @@ const MainPage = () => {
       .catch((error) => {
         console.error("Error copying link to clipboard:", error);
       });
-  };
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
   };
 
   const saveTranscript = (trans) => {
