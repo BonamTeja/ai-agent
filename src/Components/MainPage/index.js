@@ -425,6 +425,14 @@ const MainPage = () => {
             <input style={{cursor: "pointer"}} id="id-node" type="checkbox" name="node" onChange={handleChange} value="Node" checked={skills.includes("node") } />
             <label style={{cursor: "pointer"}} htmlFor="id-node">Node</label>
           </span>
+          <span className="checkboxItem">
+            <input style={{cursor: "pointer"}} id="id-mongo" type="checkbox" name="mongo" onChange={handleChange} value="MongoDB" checked={skills.includes("mongo") } />
+            <label style={{cursor: "pointer"}} htmlFor="id-mongo">MongoDB</label>
+          </span>
+          <span className="checkboxItem">
+            <input style={{cursor: "pointer"}} id="id-sap" type="checkbox" name="sap" onChange={handleChange} value="SAP" checked={skills.includes("sap") } />
+            <label style={{cursor: "pointer"}} htmlFor="id-sap">SAP</label>
+          </span>
         </div>
         <div className="search-container">
           <input
