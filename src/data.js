@@ -1742,7 +1742,8 @@ insertionSort(arr);
     `
       }
     ]
-  }, {
+  },
+  {
     category: "node",
     value: [
       {
@@ -1754,6 +1755,15 @@ insertionSort(arr);
           <p><b>Event Loop:</b> Handles asynchronous tasks (I/O, timers, requests) without blocking the main thread.</p>
           <p><b>Libuv library:</b> Provides a thread pool and handles background tasks like file system operations and networking.</p>
           <p><b>Non-blocking I/O:</b> Lets Node.js process thousands of concurrent requests efficiently without creating multiple threads.</p>
+       `,
+      },
+      {
+        command: "Explain the MVC architecture?",
+        text: `<p>The Model-View-Controller (MVC) framework is a way of organizing code for web applications. It separates the application into three parts: the Model, the View, and the Controller. Each part has a specific job to do.</p>
+          
+          <p><b>Model:</b> Represents the data and business logic of the application.</p>
+          <p><b>View:</b> Displays the data to the user and handles user interactions.(React JS)</p>
+          <p><b>Controller:</b> Acts as an intermediary between the Model and View, handling user input and updating the Model or View accordingly.</p>
        `,
       },
       {
@@ -1784,239 +1794,368 @@ insertionSort(arr);
         <p><b>Unified Codebase:</b> The same code is used for both server and client.</p>
         <p><b>Easy for JavaScript Developers:</b> Since NodeJS is based on JavaScript, integration is easy.</p>
       `,
-          },
-          {
-            command: "Difference between Synchronous and Asynchronous functions",
-            text: `
-        <table border="1" cellSpacing="0" cellPadding="6">
-          <tr>
-            <th>Synchronous</th>
-            <th>Asynchronous</th>
-          </tr>
-          <tr>
-            <td>Blocks the execution until the task completes.</td>
-            <td>Does not block the execution; allows other tasks to proceed concurrently.</td>
-          </tr>
-          <tr>
-            <td>Executes tasks sequentially; each task must be completed before the next one starts.</td>
-            <td>Initiate tasks and proceed with other operations while waiting for completion.</td>
-          </tr>
-          <tr>
-            <td>Returns the result immediately after completion.</td>
-            <td>Typically returns a promise or callback or uses event handling to handle the result upon completion.</td>
-          </tr>
-          <tr>
-            <td>Errors can be easily caught with try-catch blocks.</td>
-            <td>Error handling is more complex and often involves callbacks, promises, or async/await syntax</td>
-          </tr>
-        </table>
-      `,
-          },
-          {
-            command: "What are modules in NodeJS?",
-            text: `
-        <p>A module is a block of code that provides functionality.</p>
-        <p>Modules can be single files or multiple files.</p>
-        <p>They are useful because of their reusability and ability to reduce the complexity of code into smaller pieces.</p>
-        <p>Examples: http, fs, os, path</p>
-      `,
-          },
-          {
-            command: "Purpose of require keyword",
-            text: `
-        <p>The require keyword is used to import built-in or external modules.</p>
-        <pre>
-    const http = require('http');
-        </pre>
-      `,
-          },
-          {
-            command: "What is V8 engine?",
-            text: `
-        <p>V8 is an open-source JavaScript engine developed by Google.</p>
-        <ul>
-          <li>Compiles JS to machine code</li>
-          <li>Manages memory & garbage collection</li>
-          <li>Provides runtime for NodeJS</li>
-        </ul>
-      `,
-          },
-          {
-            command: "How to handle environment variables?",
-            text: `
-        <p>We use process.env to handle environment variables in NodeJS. We can specify environment configurations as well as keys in the .env file. To access the variable in the application, we use the “process.env.VARIABLE_NAME” syntax.</p>
-        <pre>
-    npm install dotenv
+      },
+      {
+        command: "Difference between Synchronous and Asynchronous functions",
+        text: `
+              <table border="1" cellSpacing="0" cellPadding="6">
+                <tr>
+                  <th>Synchronous</th>
+                  <th>Asynchronous</th>
+                </tr>
+                <tr>
+                  <td>Blocks the execution until the task completes.</td>
+                  <td>Does not block the execution; allows other tasks to proceed concurrently.</td>
+                </tr>
+                <tr>
+                  <td>Executes tasks sequentially; each task must be completed before the next one starts.</td>
+                  <td>Initiate tasks and proceed with other operations while waiting for completion.</td>
+                </tr>
+                <tr>
+                  <td>Returns the result immediately after completion.</td>
+                  <td>Typically returns a promise or callback or uses event handling to handle the result upon completion.</td>
+                </tr>
+                <tr>
+                  <td>Errors can be easily caught with try-catch blocks.</td>
+                  <td>Error handling is more complex and often involves callbacks, promises, or async/await syntax</td>
+                </tr>
+              </table>
+            `,
+      },
+      {
+        command: "What are modules in NodeJS?",
+        text: `
+              <p>A module is a block of code that provides functionality.</p>
+              <p>Modules can be single files or multiple files.</p>
+              <p>They are useful because of their reusability and ability to reduce the complexity of code into smaller pieces.</p>
+              <p>Examples: http, fs, os, path</p>
+            `,
+      },
+      {
+        command: "Purpose of require keyword",
+        text: `
+              <p>The require keyword is used to import built-in or external modules.</p>
+              <pre>
+                const http = require('http');
+              </pre>
+            `,
+      },
+      {
+        command: "What is V8 engine?",
+        text: `
+              <p>V8 is an open-source JavaScript engine developed by Google.</p>
+              <ul>
+                <li>Compiles JS to machine code</li>
+                <li>Manages memory & garbage collection</li>
+                <li>Provides runtime for NodeJS</li>
+              </ul>
+            `,
+      },
+      {
+        command: "How to handle environment variables?",
+        text: `
+              <p>We use process.env to handle environment variables in NodeJS. We can specify environment configurations as well as keys in the .env file. To access the variable in the application, we use the “process.env.VARIABLE_NAME” syntax.</p>
+              <pre>
+                npm install dotenv
 
-    require('dotenv').config();
-    const port = process.env.PORT || 3000;
-        </pre>
-      `,
-          },
-          {
-            command: "What is Control Flow in NodeJS?",
-            text: `
-        <p>Control flow defines execution order of async operations.</p>
-        <p>NodeJS handles async tasks using non-blocking architecture.</p>
-      `,
-          },
-          {
-            command: "What is Event Loop?",
-            text: `
-        <p>The event loop in NodeJS is a mechanism that allows it to handle multiple asynchronous tasks concurrently within a single thread. It continuously listens for events and executes associated callback functions.</p>
-        <pre>
-    console.log("Start");
-    setTimeout(() => console.log("Timeout"), 0);
-    console.log("End");
-        </pre>
-      `,
-          },
-          {
-            command: "Main disadvantages of NodeJS",
-            text: `
-        <ul>
-          <li>Single-threaded (CPU heavy tasks)</li>
-          <li>NoSQL preferred</li>
-          <li>Rapid API changes</li>
-        </ul>
-      `,
-          },
-          {
-            command: "What is REPL?",
-            text: `
-        <p>REPL stands for Read, Evaluate, Print, Loop.</p>
-        <p>Used for quick testing and debugging.</p>
-      `,
-          },
-          {
-            command: "CommonJS vs ES Modules",
-            text: `
-        <pre>
-    // CommonJS
-    const fs = require('fs');
+                require('dotenv').config();
+                const port = process.env.PORT || 3000;
+              </pre>
+            `,
+      },
+      {
+        command: "What is Control Flow in NodeJS?",
+        text: `
+              <p>Control flow refers to the order in which asynchronous operations (like file reads, API calls, DB queries) are executed and how their results are handled.</p>
+              <p>NodeJS handles async tasks using non-blocking architecture and event-driven.</p>
+            `,
+      },
+      {
+        command: "What is Event Loop?",
+        text: `
+              <p>The event loop in NodeJS is a mechanism that allows it to handle multiple asynchronous tasks concurrently within a single thread. It continuously listens for events and executes associated callback functions.</p>
+              <pre>
+                console.log("Start");
+                setTimeout(() => console.log("Timeout"), 0);
+                console.log("End");
+              </pre>
+            `,
+      },
+      {
+        command: "Main disadvantages of NodeJS",
+        text: `
+              <ul>
+                <li>Single-threaded (CPU heavy tasks)</li>
+                <li>NoSQL preferred</li>
+                <li>Rapid API changes</li>
+              </ul>
+            `,
+      },
+      {
+        command: "What is the order in which control flow statements get executed?",
+        text: `
+              <p>The order in which the statements are executed is as follows:</p>
+              <ul>
+                <li>Execution and queue handling</li>
+                <li>Collection of data and storing it</li>
+                <li>Handling concurrency</li>
+                <li>Executing the next lines of code</li>
+              </ul>
+            `,
+      },
+      {
+        command: "What is REPL in NodeJS?",
+        text: `
+              <p>REPL in NodeJS is an interactive shell that allows developers to execute JavaScript code line by line. It provides a quick way to test and debug code snippets without creating a full application.</p>
+              <p><b>Read:</b>It reads the input provided by the user (JavaScript expressions or commands).</p>
+              <p><b>Eval:</b>It evaluates the input (executes the code).</p>
+              <p><b>Print:</b>It prints the result of the evaluation to the console.</p>
+              <p><b>Loop:</b>It loops back to read more input.</p>
+            `,
+      },
+      {
+        command: "CommonJS vs ES Modules",
+        text: `
+              <pre>
+                // CommonJS
+                const fs = require('fs');
 
-    // ES Modules
-    import fs from 'fs';
-        </pre>
-      `,
-          },
-          {
-            command: "NodeJS vs Angular",
-            text: `
-        <table border="1" cellpadding="6">
-          <tr><th>NodeJS</th><th>Angular</th></tr>
-          <tr><td>Backend runtime</td><td>Frontend framework</td></tr>
-          <tr><td>Server-side</td><td>Client-side</td></tr>
-        </table>
-      `,
-          },
-          {
-            command: "What is package.json?",
-            text: `
-        <p>package.json stores metadata, dependencies, scripts and config.</p>
-      `,
-          },
-          {
-            command: "Create HTTP server",
-            text: `
-        <pre>
-    const http = require('http');
+                // ES Modules
+                import fs from 'fs';
+              </pre>
+            `,
+      },
+      {
+        command: "NodeJS vs Angular",
+        text: `
+              <table border="1" cellpadding="6">
+                <tr><th>NodeJS</th><th>Angular</th></tr>
+                <tr><td>Backend runtime</td><td>Frontend framework</td></tr>
+                <tr><td>Server-side</td><td>Client-side</td></tr>
+              </table>
+            `,
+      },
+      {
+        command: "What is package.json?",
+        text: `
+              <p>package.json stores metadata, dependencies, scripts and config.</p>
+            `,
+      },
+      {
+        command: "Create HTTP server",
+        text: `
+              <pre>
+                const http = require('http');
 
-    http.createServer((req,res)=>{
-      res.end("Hello World");
-    }).listen(3000);
-        </pre>
-      `,
-          },
-          {
-            command: "Commonly used NodeJS libraries",
-            text: `
-        <ul>
-          <li>ExpressJS</li>
-          <li>Mongoose</li>
-          <li>Passport</li>
-          <li>Multer</li>
-        </ul>
-      `,
-          },
-          {
-            command: "What are Promises?",
-            text: `
+                http.createServer((req,res)=>{
+                  res.end("Hello World");
+                }).listen(3000);
+              </pre>
+            `,
+      },
+      {
+        command: "Commonly used NodeJS libraries",
+        text: `
+              <ul>
+                <li>ExpressJS</li>
+                <li>Mongoose</li>
+                <li>Passport</li>
+                <li>Multer</li>
+              </ul>
+            `,
+      },
+      {
+        command: "What are Promises?",
+        text: `
         <p>Promises handle async operations and avoid callback hell.</p>
         <p>States: Pending, Fulfilled, Rejected</p>
       `,
-          },
-          {
-            command: "What is Event-driven programming?",
-            text: `
-        <p>Uses events and callbacks instead of sequential flow.</p>
-      `,
-          },
-          {
-            command: "What is Buffer?",
-            text: `
-        <p>Buffer handles raw binary data.</p>
-      `,
-          },
-          {
-            command: "What are Streams?",
-            text: `
-        <ul>
-          <li>Readable</li>
-          <li>Writable</li>
-          <li>Duplex</li>
-          <li>Transform</li>
-        </ul>
-      `,
-          },
-          {
-            command: "What is Callback Hell?",
-            text: `
-        <p>Nested callbacks causing unreadable code.</p>
-      `,
-          },
-          {
-            command: "setImmediate vs process.nextTick",
-            text: `
-        <p>process.nextTick executes before I/O.</p>
-        <p>setImmediate executes after I/O.</p>
-      `,
-          },
-          {
-            command: "What is CORS?",
-            text: `
-        <p>CORS allows controlled cross-origin access.</p>
-      `,
-          },
-          {
-            command: "What is Cluster?",
-            text: `
-        <p>Cluster enables multi-core CPU usage.</p>
-      `,
-          },
-          {
-            command: "Authentication & Authorization",
-            text: `
-        <p>Authentication verifies identity.</p>
-        <p>Authorization controls access.</p>
-        <p>Implemented using Passport & JWT.</p>
-      `,
-          },
-          {
-            command: "What is WebSocket?",
-            text: `
-        <p>Web Socket is a protocol that provides full-duplex (multiway) communication i.e. allows communication in both directions simultaneously.</p>
-        <p>Web Socket is a modern web technology in which there is a continuous connection between the user’s browser (client) and the server.</p>
-      `,
-          },
-          {
-            command: "Explain DNS module in NodeJS?",
-            text: `
+      },
+      {
+        command: "What is Event-driven programming?",
+        text: `
+              <p>Event-driven programming is used to synchronize the occurrence of multiple events and to make the program as simple as possible.</p>
+            `,
+      },
+      {
+        command: "What is Buffer?",
+        text: `
+              <p>The Buffer class in NodeJS is used to perform operations on raw binary data.</p>
+              <p>Buffer refers to the particular memory location in memory.</p>
+            `,
+      },
+      {
+        command: "What are Streams?",
+        text: `
+              <p>Streams handle reading/writing data in chunks.</p>
+              <ul>
+                <li><b>Readable:</b>These streams allow you to read data</li>
+                <li><b>Writable:</b>These streams allow you to write data</li>
+                <li><b>Duplex:</b>These streams are both readable and writable</li>
+                <li><b>Transform:</b>These streams are a combination of readable and writable streams</li>
+              </ul>
+            `,
+      },
+      {
+        command: "Explain the crypto module in NodeJS.",
+        text: `
+              <p>The crypto module is used for encrypting, decrypting, or hashing any type of data. This encryption and decryption basically help to secure and add a layer of authentication to the data.</p>
+              <p>The main use case of the crypto module is to convert the plain readable text to an encrypted format and decrypt it when required.</p>
+            `,
+      },
+      {
+        command: "What is Callback Hell?",
+        text: `
+              <p>Callback hell is an issue caused by a nested callback. This causes the code to look like a pyramid and makes it unable to read To overcome this situation, we use promises.</p>
+            `,
+      },
+      {
+        command: "setImmediate vs process.nextTick",
+        text: `
+              <table border="1" cellSpacing="0" cellpadding="6">
+                <thead>
+                  <tr>
+                    <th>setImmediate</th>
+                    <th>process.nextTick</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Executes the callback after the current event loop cycle, but before the I/O tasks.</td>
+                    <td>Executes the callback immediately after the current operation, before any I/O or timers.</td>
+                  </tr>
+                  <tr>
+                    <td>Executes after I/O events and before timers.</td>
+                    <td>Executes before any I/O events or timers.</td>
+                  </tr>
+                  <tr>
+                    <td>Less likely to cause a stack overflow because it is queued after the current event loop phase.</td>
+                    <td>n cause a stack overflow if used excessively because it executes before I/O or other operations, potentially blocking the event loop.</td>
+                  </tr>
+                </tbody>
+              </table>
+            `,
+      },
+      {
+        command: "What are the different types of HTTP requests?",
+        text: `
+              <p>The different types of HTTP requests are mentioned below:</p>
+              <p><b>GET:</b> Retrieve data.</p>
+              <p><b>POST:</b> Create new resource.</p>
+              <p><b>PUT:</b> Update existing resource.</p>
+              <p><b>PATCH:</b> Partially update existing resource.</p>
+              <p><b>DELETE:</b> Remove existing resource.</p>
+            `,
+      },
+      {
+        command: "Explain the use of the passport module in NodeJS",
+        text: `
+              <p>The passport module is used for adding authentication features to our website or web app. It implements authentication measure which helps to perform sign-in operations.</p>
+            `,
+      },
+      {
+        command: "What is a, fork in NodeJS?",
+        text: `
+              <p>Fork is a method in NodeJS that is used to create child processes. It helps to handle the increasing workload. It creates a new instance of the engine which enables multiple processes to run the code.</p>
+            `,
+      },
+      {
+        command: "What is a .body-parser in NodeJS?",
+        text: `
+              <p>Body-parser is the NodeJS body-parsing middleware. It is responsible for parsing the incoming request bodies in a middleware before you handle it. It is an NPM module that processes data sent in HTTP requests.</p>
+            `,
+      },
+      {
+        command: "Explain the tls module in NodeJS?",
+        text: `
+              <p>The tls module provides an implementation of the Transport Layer Security (TLS) and Secure Socket Layer (SSL) protocols that are built on top of OpenSSL. It helps to establish a secure connection on the network.</p>
+            `,
+      },
+      {
+        command: "Can you access DOM in Node?",
+        text: `
+              <p>No, you cannot access the DOM in NodeJS because NodeJS is a server-side environment, while the DOM (Document Object Model) is a client-side concept used in browsers to interact with HTML and XML documents.</p>
+            `,
+      },
+      {
+        command: "What is piping in NodeJS?",
+        text: `
+              <p>Piping  refers to the process of passing the output of one stream directly into another stream. It allows data to flow through multiple streams without needing to store it in memory or temporarily write it to disk.</p>
+            `,
+      },
+      {
+        command: "What is Cluster?",
+        text: `
+              <p>Due to a single thread in NodeJS, it handles memory more efficiently because there are no multiple threads due to which no thread management is needed.</p>
+              <p>Cluster modules are created that provide us the way to make child processes that run simultaneously with a single parent process.</p>
+            `,
+      },
+      {
+        command: "How to manage sessions in NodeJS?",
+        text: `
+              <p>Session management can be done in NodeJS by using the express-session module. It helps in saving the data in the key-value form. In this module, the session data is not saved in the cookie itself, just the session ID.</p>
+            `,
+      },
+      {
+        command: "How many types of API functions are there in Node.js?",
+        text: `
+              <p>There are two types of API functions:</p>
+              <p><b>Asynchronous, non-blocking functions</b> - mostly I/O operations which can be fork out of the main loop.</p>
+              <p><b>Synchronous, blocking functions -</b> mostly operations that influence the process running in the main loop.</p>
+            `,
+      },
+      {
+        command: "How can we implement authentication and authorization in NodeJS?",
+        text: `
+              <p>Authentication is the process of verifying a user’s identity, while Authorization determines what actions or resources that user is allowed to access. In Node.js, these can be implemented using packages such as Passport (for strategies like OAuth, Google, GitHub, etc.) and JWT (jsonwebtoken) for token-based authentication and role-based authorization.</p>
+            `,
+      },
+      {
+        command: "Explain the packages used for file uploading in NodeJS?",
+        text: `
+              <p>The package used for file uploading in NodeJS is Multer. The file can be uploaded to the server using this module.</p>
+              <p>There are other modules in the market but Multer is very popular when it comes to file uploading. Multer is a NodeJS middleware that is used for handling multipart/form-data, which is a mostly used library for uploading files.</p>
+            `,
+      },
+      {
+        command: "How to read command line arguments in NodeJS?",
+        text: `
+              <p>Command-line arguments (CLI) are strings of text used to pass additional information to a program when an application is running through the command line interface of an operating system.</p>
+            `,
+      },
+      {
+        command: "Explain the NodeJS Redis module.",
+        text: `
+              <p>Redis is an Open Source store for storing data structures. It is used in multiple ways. It is used as a database, cache, and message broker.</p>
+              <p>It can store data structures such as strings, hashes, sets, sorted sets, bitmaps, indexes, and streams.</p>
+              <p>Redis is very useful for NodeJS developers as it reduces the cache size which makes the application more efficient.</p>
+            `,
+      },
+      {
+        command: "What is WebSocket?",
+        text: `
+              <p>Web Socket is a protocol that provides full-duplex (multiway) communication i.e. allows communication in both directions simultaneously.</p>
+              <p>Web Socket is a modern web technology in which there is a continuous connection between the user’s browser (client) and the server.</p>
+            `,
+      },
+      {
+        command: "Explain the util module in NodeJS",
+        text: `
+                  <p>The Util module in NodeJS provides access to various utility functions. There are various utility modules available in the NodeJS module library.</p>
+                  <p><b>OS Module:</b> Operating System-based utility modules for NodeJS are provided by the OS module.</p>
+                  <p><b>Path Module:</b> The path module in NodeJS is used for transforming and handling various file paths.</p>
+                  <p><b>DNS Module:</b> DNS Module enables us to use the underlying Operating System name resolution functionalities. The actual DNS lookup is also performed by the DNS Module.</p>
+                  <p><b>Net Module:</b> Net Module in NodeJS is used for the creation of both client and server. Similar to DNS Module this module also provides an asynchronous network wrapper.</p>
+                  `,
+      },
+      {
+        command: "Explain DNS module in NodeJS?",
+        text: `
                   <p>DNS is a node module used to do name resolution facility which is provided by the operating system as well as used to do an actual DNS lookup. Its main advantage is that there is no need for memorizing IP addresses – DNS servers provide a nifty solution for converting domain or subdomain names to IP addresses.</p>`,
-          },
-          {
-            command: "What is the difference between setImmediate() and setTimeout()?",
-            text: `<table border="1" cellSpacing="0" cellPadding="6">
+      },
+      {
+        command: "What is the difference between setImmediate() and setTimeout()?",
+        text: `<table border="1" cellSpacing="0" cellPadding="6">
               <thead>
                 <tr><th>setImmediate</th><th>setTimeout</th></tr>
               </thead>
@@ -2026,17 +2165,873 @@ insertionSort(arr);
                 <tr><td>Has no timer; it is designed for immediate execution.</td><td>Executes only after the specified delay, which may vary slightly based on system timing resolution.</td></tr>
               </tbody>
             </table>`,
-          },
-          {
-            command: "What is Event Emitter?",
-            text: `
+      },
+      {
+        command: "What is Event Emitter?",
+        text: `
                   <p>Event Emitter is a class that allows objects to emit events and register listeners (callbacks) to handle those events.</p>
                   <p>It is part of the events module and is commonly used to handle asynchronous events and to implement an observer pattern, where an object (the emitter) triggers events, and other objects (listeners) respond to those events.</p>
                 `,
-          }
+      }
 
     ]
-  }
+  },
+  {
+    category: "mongo",
+    value: [
+      {
+        command: "What Is Replication In MongoDB?",
+        text: `<p>Replication means keeping copies of the same data on multiple servers so the database keeps working if one server fails. One server is the primary (accepts writes) and others are secondaries (copy data from the primary).</p>`
+      },
+      {
+        command: "Explain MongoDB replica set election process",
+        text: `<p>Servers send regular heartbeats to check each other's health. If the primary stops responding, the secondaries vote and the server with the most votes becomes the new primary, so the cluster stays available.</p>`
+      },
+      {
+        command: "What is Sharding in MongoDB?",
+        text: `<p>Sharding splits a large dataset across multiple machines so the database can store more data and handle more users. Each shard holds part of the data and a router (mongos) sends queries to the correct shards.</p>`
+      },
+      {
+        command: "Shard key selection and balancing",
+        text: `<p>Pick a shard key that spreads data evenly and matches your common queries. The balancer moves data between shards to keep them even; a bad key can cause one shard to get too much traffic (hot shard).</p>`
+      },
+      {
+        command: "Write Concern and Read Concern",
+        text: `<p>Write concern decides how many servers must confirm a write before it is considered successful (e.g., w:1, w:majority). Read concern controls how recent the data you read must be (e.g., local, majority). Stronger settings make data safer but can slow things down.</p>`
+      },
+      {
+        command: "Transactions in MongoDB",
+        text: `<p>MongoDB supports ACID transactions across multiple documents and collections. Useful for short, multi-step changes, but transactions add overhead, so keep them small and retry on temporary failures.</p>`
+      },
+      {
+        command: "Aggregation pipeline and performance",
+        text: `<p>The aggregation pipeline processes data step-by-step (for example $match, $group, $project). To make it fast, filter early, use indexes where possible, and avoid expensive joins or unwinds on very large datasets.</p>`
+      },
+      {
+        command: "Indexing strategies and query optimization",
+        text: `<p>Create indexes that match your queries and sort order. Compound and covering indexes can speed queries. Be careful not to add too many indexes because each index slows writes and uses memory.</p>`
+      },
+      {
+        command: "Storage engine (WiredTiger) and compression",
+        text: `<p>WiredTiger (the default) uses document-level locking and supports compression. Compression saves disk space but can use CPU; ensure your RAM fits the working set to avoid slow disk reads.</p>`
+      },
+      {
+        command: "Backup and restore for sharded clusters",
+        text: `<p>Backups for sharded clusters need to be coordinated across shards and config servers. Use cluster-aware backup tools or consistent filesystem snapshots; simple mongodump may not be enough for large or sharded deployments.</p>`
+      },
+      {
+        command: "Change Streams and scalability",
+        text: `<p>Change Streams let you watch data changes in real time and are built on the replication log (oplog). They need replica sets or sharded clusters; use resume tokens to handle disconnects and design consumers to handle bursts of changes.</p>`
+      },
+      {
+        command: "Troubleshooting and monitoring",
+        text: `<p>Use tools like serverStatus, replSetGetStatus, mongostat, mongotop and logs to monitor the cluster. Watch replication lag, CPU, disk I/O and slow queries; use explain() to find and fix slow queries.</p>`
+      },
+      {
+        command: "How does MongoDB store data internally?",
+        text: `<p>MongoDB stores data in BSON (Binary JSON) format, which is optimized for speed and traversing.</p>`
+      },
+      {
+        command: "Explain BSON and Its Significance in MongoDB.",
+        text: `<p>BSON (Binary JSON) is a binary-encoded serialization format used by MongoDB to store documents. BSON extends JSON by adding support for data types such as dates and binary data and it is designed to be efficient in both storage space and scan speed.</p>`
+      },
+      {
+        command: "How Does MongoDB Ensure High Availability and Scalability?",
+        text: `
+          <p>MongoDB ensures high availability and scalability through its features like replica sets and sharding.</p>
+          <p>Replica sets provide redundancy and failover capabilities by ensuring that data is always available.</p>
+          <p>Sharding distributes data across multiple servers, enabling horizontal scalability to handle large volumes of data and high traffic loads.</p>
+        `
+      },
+      {
+        command: "What is the role of _id in MongoDB documents?",
+        text: `
+          <p>Id uniquely identifies each document within a collection. It acts as the default primary key and helps in indexing and quick retrieval.</p>
+        `
+      },
+      {
+        command: "How do you insert data into a collection?",
+        text: `
+          <p>We can use the insertOne() or insertMany() methods.</p>
+        `
+      },
+    ]
+  },
+  {
+    category: "sap",
+    value: [
+      {
+        command: "Differnence between SAP_ALL and SAP_NEW profiles",
+        text: `<p>SAP_ALL is a profile that provides full authorization in the SAP system. A user assigned with SAP_ALL can access almost all transactions and perform all activities, so it is usually given to administrators and not to regular users in production due to security risks.
+
+SAP_NEW, on the other hand, is used during system upgrades. It temporarily provides access to new authorization objects introduced after an upgrade to avoid authorization issues. It is not meant to be assigned permanently.</p>`
+      },
+      {
+        command: "What is SU24, SU22 and SU25 tcodes",
+        text: `<p>SU24, SU22, and SU25 are transaction codes in SAP related to authorization management.
+
+SU24 is used to maintain authorization check indicators and default authorization values for transactions. It helps control which authorization objects are proposed when we create roles.
+
+SU22 is mainly used by SAP at the system level to maintain standard authorization proposals. It acts as the master reference for SU24.
+
+SU25 is used after a system upgrade. It helps compare and adjust authorization data, ensuring that new or changed authorization objects are properly updated in the system.</p>`
+      },
+
+      {
+        command: "What are customer tables",
+        text: `<p>In SAP authorization concept, USOBT and USOBX are standard SAP tables, and USOBT_C and USOBX_C are customer tables.
+
+USOBX stores authorization check indicators for transactions.
+
+USOBT stores the default authorization values for authorization objects linked to transactions.
+
+USOBX_C and USOBT_C store customer-specific changes made in SU24. This ensures SAP standard data remains intact during upgrades.</p>`
+      },
+
+      {
+        command: "Different traffic colors in pfcg authorization tab",
+        text: `<p>Red – Missing authorization values. The role is incomplete.
+
+Yellow – Authorization data changed but profile not generated.
+
+Green – All values maintained and profile generated successfully.</p>`
+      },
+
+      {
+        command: "Different statuses of authorization objects in pfcg authorization tab",
+        text: `<p>Standard – SAP delivered and unchanged.
+
+Changed – Modified manually compared to standard.
+
+Maintained – Required fields are filled.
+
+Not Maintained – Missing required fields.
+
+Manually Added – Added manually and not proposed automatically by SU24.</p>`
+      },
+
+      {
+        command: "What is use of PRGN_COMPRESS_TIMES program",
+        text: `<p>PRGN_COMPRESS_TIMES is a standard SAP program used to reorganize and compress authorization data in roles.
+
+It removes unnecessary time-dependent entries and improves system performance. It is usually executed after mass role maintenance or transport activities.</p>`
+      },
+
+      {
+        command: "Steps to take authorization trace for a user",
+        text: `<p>Go to ST01 → Select Authorization Check → Trace with Filter → Enter User ID → Activate trace → Reproduce issue → Deactivate → Display trace → Check RC = 4 failures.</p>`
+      },
+
+      {
+        command: "Explain about user buffer SU56",
+        text: `<p>SU56 displays the user buffer in SAP. When a user logs in, assigned roles and profiles are loaded into memory. SAP checks this buffer instead of the database for better performance. It helps troubleshoot authorization issues.</p>`
+      },
+
+      {
+        command: "What are activity values in authorization objects",
+        text: `<p>Activity values are stored in field ACTVT and define what action a user can perform.
+
+01 – Create  
+02 – Change  
+03 – Display  
+06 – Delete  
+16 – Execute  
+
+They ensure granular and secure authorization control.</p>`
+      },
+
+      {
+        command: "What is the authorization object required for RFC connection S_RFC",
+        text: `<p>The authorization object required for RFC connections is S_RFC.
+
+It controls which RFC destinations a user can access. Activity value is usually 16 – Execute.</p>`
+      },
+
+      {
+        command: "What is SOD",
+        text: `<p>SOD stands for Segregation of Duties. It ensures no single user has conflicting responsibilities that could lead to fraud or errors.</p>`
+      },
+
+      {
+        command: "Risk in Grc",
+        text: `<p>In SAP GRC, a Risk represents a potential conflict or threat that could lead to fraud, errors, or non-compliance. Risks are usually linked to Segregation of Duties conflicts or critical transactions.</p>`
+      },
+
+      {
+        command: "Hana security",
+        text: `<p>SAP HANA Security controls access to the HANA database and data stored within it.
+
+It includes Users, Roles, Privileges (System, Object, Analytic), and Schema-level controls to enforce least privilege access.</p>`
+      },
+
+      {
+        command: "Fiori security",
+        text: `<p>SAP Fiori Security controls access to Fiori apps via PFCG roles, catalogs, and groups.
+
+It combines frontend Launchpad access with backend authorization objects and OData service authorizations.</p>`
+      },
+      {
+        command: "How to create user",
+        text: `<p>To create a user in SAP, use transaction SU01.
+
+Steps:
+Go to SU01 → Click Create → Enter User ID → Maintain user details → Assign roles → Set initial password → Save.
+
+After creation, user can log in and access based on assigned roles.</p>`
+      },
+
+      {
+        command: "What access we need while creating user?",
+        text: `<p>To create users in SAP, the following authorizations are required:
+
+S_USER_GRP – Maintain users in specific groups  
+S_USER_AUTH – Assign roles and profiles  
+S_USER_TCD – Assign transactions  
+S_USER_PRO – Assign profiles  
+S_USER_ADM – General administration rights  
+
+These ensure controlled user administration.</p>`
+      },
+
+      {
+        command: "How you are taking trace?",
+        text: `<p>I use ST01 to take authorization trace.
+
+Steps:
+Go to ST01 → Select Authorization Check → Trace with Filter → Enter User ID → Activate → Reproduce issue → Deactivate → Display Trace → Check RC = 4 failures.</p>`
+      },
+
+      {
+        command: "What is the workflow?",
+        text: `<p>Workflow in SAP is a process automation tool used to manage approvals and tasks.
+
+In SAP Security, workflows are used for user access requests, role assignments, and approval tracking. It ensures controlled, auditable processing of access requests.</p>`
+      },
+
+      {
+        command: "How to create roles?",
+        text: `<p>To create a role:
+
+Go to PFCG → Enter role name → Create Single Role → Maintain description → Add TCodes in Menu tab → Maintain authorization objects → Generate profile → Assign users → Save.
+
+Roles can be Single or Composite.</p>`
+      },
+
+      {
+        command: "Different types of roles?",
+        text: `<p>Types of roles in SAP:
+
+Single Role – Contains specific transactions and authorizations  
+Composite Role – Collection of multiple single roles  
+Derived Role – Inherits from parent role with different org levels  
+SAP Standard Role – Delivered by SAP  
+Custom Role (Z/Y) – Created for business-specific requirements</p>`
+      },
+
+      {
+        command: "What is the activity field required for changing password?",
+        text: `<p>The activity field required for changing password is ACTVT = 02 (Change).
+
+It is part of authorization object S_USER_AUTH or S_USER_GRP depending on configuration.</p>`
+      },
+
+      {
+        command: "What is the last incident you processed and how you solved it?",
+        text: `<p>A user was unable to execute a transaction due to missing authorization.
+
+I checked SU53 → Identified missing object → Updated role in PFCG → Generated profile → Performed user comparison → Asked user to re-login → Issue resolved.
+
+Documented resolution for audit compliance.</p>`
+      },
+
+      {
+        command: "If we want to add custom transaction to a tcode how we will add?",
+        text: `<p>Go to PFCG → Open role → Menu tab → Insert Transaction → Enter custom Z/Y TCode → Save → Go to Authorization tab → Maintain values → Generate profile.
+
+Then assign role to user.</p>`
+      },
+
+      {
+        command: "If user is asking for new tcode what checks we will do?",
+        text: `<p>Check business requirement → Verify existing roles → Check authorization objects via SU24 → Perform SoD/Risk analysis → Get approval → Assign role or create new role → Test access → Document change.</p>`
+      },
+
+      {
+        command: "How tcode or auth object added to composite role?",
+        text: `<p>We cannot directly add TCode to composite role.
+
+We add TCode to the underlying single role in PFCG, generate profile, and composite role automatically inherits the change.</p>`
+      },
+
+      {
+        command: "If we want to add transaction in derived role how we will add?",
+        text: `<p>Transactions cannot be added directly to derived roles.
+
+Add the TCode in the parent role → Generate profile → Derived roles automatically inherit the changes.</p>`
+      },
+
+      {
+        command: "What is portal access management?",
+        text: `<p>Portal Access Management controls user access to SAP Enterprise Portal or Fiori Launchpad.
+
+It manages portal roles, content visibility, SSO integration, and ensures secure access to applications.</p>`
+      },
+
+      {
+        command: "In user administration what you're doing?",
+        text: `<p>User Administration includes:
+
+Creating and maintaining users  
+Assigning roles  
+Resetting passwords  
+Locking/unlocking users  
+Performing User Access Reviews  
+Troubleshooting authorization issues  
+Supporting audits and compliance.</p>`
+      },
+
+      {
+        command: "How you are doing mass user creation/deletion/password reset?",
+        text: `<p>Mass user operations are done using:
+
+SU10 – Mass maintenance  
+LSMW – Bulk user creation  
+SUSR_USER_CREATE / SUSR_USER_DELETE programs  
+
+After execution, validation and audit documentation are performed.</p>`
+      },
+
+      {
+        command: "How your accessing firefighter id?",
+        text: `<p>Access Firefighter ID via SAP GRC EAM portal.
+
+Select FF ID → Provide justification → Start session → Perform tasks → End session → Logs reviewed by controller.
+
+All activities are monitored and audited.</p>`
+      },
+
+      {
+        command: "If someone has done some critical activities in sap how you will know?",
+        text: `<p>Use SM20 (Audit Logs), SUIM change documents, Firefighter logs, and GRC reports to track critical activities.
+
+These logs help identify who performed what action and when.</p>`
+      },
+
+      {
+        command: "Do you know about jobs?",
+        text: `<p>Jobs are scheduled background programs in SAP.
+
+SM36 – Schedule job  
+SM37 – Monitor job status  
+
+Jobs automate reports, batch processes, and system tasks.</p>`
+      },
+
+      {
+        command: "About pfcg-time-dependency?",
+        text: `<p>PFCG time dependency allows assigning roles to users for a specific validity period.
+
+After end date, access is automatically removed. Useful for temporary or project-based access.</p>`
+      },
+
+      {
+        command: "What is a user comparison?",
+        text: `<p>User Comparison synchronizes user profiles with updated roles in PFCG.
+
+After modifying a role, perform user comparison to update authorization profiles for assigned users.</p>`
+      },
+
+      {
+        command: "How you handle inactive user?",
+        text: `<p>Identify inactive users via SUIM → Confirm with business → Lock user via SU01 → Remove roles if required → Document action for audit compliance.</p>`
+      },
+      {
+        command: "When user is not able to access some functionality even after all relevant objects assigned how will you fix?",
+        text: `<p>First check SU53 immediately after the error to identify missing authorization.
+
+Then verify SU56 user buffer to ensure updated roles are loaded.
+
+If needed, take ST01 trace to check hidden authorization failures.
+
+Check role validity dates and perform user comparison in PFCG.
+
+Refresh buffer by asking user to log out and log in again.</p>`
+      },
+
+      {
+        command: "Custom Transactions – What all things to be considered?",
+        text: `<p>Understand business requirement and purpose of the custom Z/Y TCode.
+
+Check authorization objects via SU24 or program analysis.
+
+Perform SoD risk assessment in GRC.
+
+Classify risk level (High/Medium/Low).
+
+Ensure logging and audit tracking for critical custom transactions.</p>`
+      },
+
+      {
+        command: "How we do risk assessment for custom transactions?",
+        text: `<p>Check SU24 defaults.
+
+Map TCode against SoD rule set in GRC.
+
+Run risk analysis.
+
+Identify conflicts and classify risk level.
+
+Apply mitigation or restrict access if required.</p>`
+      },
+
+      {
+        command: "How role changes are tracked? How to find why role change is done?",
+        text: `<p>Use PFCG role comparison utility to compare old and new versions.
+
+Check transport logs in SE09/SE10.
+
+Review GRC logs if BRM is used.
+
+Analyze workflow approvals and historical snapshots for reason.</p>`
+      },
+
+      {
+        command: "How you troubleshoot Fiori Launchpad access issue?",
+        text: `<p>Verify PFCG role has correct catalogs and groups.
+
+Check OData service activation in /IWFND/MAINT_SERVICE.
+
+Review /IWFND/ERROR_LOG and /IWBEP/ERROR_LOG.
+
+Check target mapping in catalog.
+
+Clear browser cache and test again.</p>`
+      },
+
+      {
+        command: "What all options we have other than addition of TCodes in PFCG menu tab?",
+        text: `<p>Report – Add ABAP reports.
+
+Web Address – Add URLs.
+
+Web Dynpro / BSP Applications.
+
+Folders and subfolders for structuring.
+
+Existing roles.
+
+Custom menu items.</p>`
+      },
+
+      {
+        command: "How you set up, maintain and assign Firefighter IDs?",
+        text: `<p>Create FF ID (Service type user).
+
+Assign firefighter role.
+
+Assign controller.
+
+Maintain assignment in GRC EAM with validity period.
+
+User logs in with justification.
+
+Controller reviews logs after session.</p>`
+      },
+
+      {
+        command: "Why FF ID is of Service type?",
+        text: `<p>FF IDs are Service type because they are shared emergency accounts not tied to a specific dialog user.
+
+They prevent interactive login misuse and are monitored via GRC logging.</p>`
+      },
+
+      {
+        command: "If FF ID login fails though configuration is correct what could be issue?",
+        text: `<p>Most common issue is RFC connectivity failure.
+
+Check SM59 RFC destination.
+
+Test connection and authorization.
+
+Verify backend system mapping in GRC.</p>`
+      },
+
+      {
+        command: "Can we maintain authorizations for Catalogs in SU24?",
+        text: `<p>No. SU24 is used for TCode authorization proposals.
+
+Fiori Catalog access is maintained via PFCG roles.
+
+OData service authorization objects are maintained in role Authorization tab.</p>`
+      },
+
+      {
+        command: "Major differences between ECC and S/4 HANA?",
+        text: `<p>ECC supports multiple databases; S/4HANA runs only on HANA.
+
+S/4HANA has simplified data model.
+
+Fiori UI in S/4 vs SAP GUI in ECC.
+
+Real-time analytics embedded in S/4.
+
+Improved performance due to in-memory database.</p>`
+      },
+
+      {
+        command: "What are different statuses of Authorization Objects?",
+        text: `<p>Standard – SAP delivered.
+
+Maintained – Updated by SAP.
+
+Changed – Modified manually.
+
+Manually Added – Added directly in role.
+
+Expert Mode – New/Old/Updated object status tracking.</p>`
+      },
+
+      {
+        command: "Troubleshoot TCodes for Fiori access issues",
+        text: `<p>/IWFND/MAINT_SERVICE – Activate OData
+
+/IWFND/ERROR_LOG – Check errors
+
+/UI2/FLP_CHECK – Launchpad diagnostics
+
+/UI2/FLPCM_CUST – Catalog maintenance</p>`
+      },
+
+      {
+        command: "TCode to create catalogs and groups in Fiori",
+        text: `<p>/UI2/FLP – Launchpad Designer
+
+/UI2/FLPCM_CUST – Maintain catalogs
+
+/UI2/FLPCM_CONF – Configuration</p>`
+      },
+
+      {
+        command: "What are Spaces and Pages in Fiori?",
+        text: `<p>Spaces are high-level containers grouping business areas.
+
+Pages organize tiles within spaces.
+
+They replace classic group-based layout in modern Fiori Launchpad.</p>`
+      },
+
+      {
+        command: "Have you used SQL queries in Security?",
+        text: `<p>Yes. SQL queries are used for user-role analysis, SoD checks, inactive user reports, and authorization object verification from tables like AGR_USERS, AGR_1251, USR02, USOBT, USOBX.</p>`
+      },
+
+      {
+        command: "Fiori related tables",
+        text: `<p>/UI2/ADMI_CATALOG – Catalog data
+
+/UI2/ADMI_GROUP – Group data
+
+/UI2/ADMI_TMENU – Tile/menu mapping
+
+/UI2/FLP_PERS – Personalization data</p>`
+      },
+
+      {
+        command: "Risk types in SAP GRC",
+        text: `<p>Segregation of Duties Risk
+
+Critical Access Risk
+
+Custom TCode Risk
+
+Emergency Access Risk
+
+Cross-System Risk</p>`
+      },
+
+      {
+        command: "How do you perform risk analysis?",
+        text: `<p>Run Access Risk Analysis (ARA).
+
+Review SoD conflicts.
+
+Classify risk level.
+
+Apply mitigation or remove conflicting access.
+
+Document findings for audit.</p>`
+      },
+
+      {
+        command: "What risk criteria do you check for any role?",
+        text: `<p>Check SoD conflicts.
+
+Critical transactions.
+
+High-risk authorization objects.
+
+Custom Z/Y TCodes.
+
+Number of users impacted.
+
+Business criticality.</p>`
+      },
+
+      {
+        command: "Consequences of manually added authorization objects?",
+        text: `<p>May create audit risk.
+
+Difficult maintenance during upgrades.
+
+Possible SoD conflicts.
+
+Inconsistent role design.
+
+Harder troubleshooting.</p>`
+      },
+      {
+        command: "What is SAP GRC and why is it important in S/4HANA?",
+        text: `<p>SAP GRC is a suite of tools that helps organizations manage Governance, Risk, and Compliance.
+
+It ensures companies follow regulations, prevent fraud, enforce Segregation of Duties, and maintain audit compliance in S/4HANA environments.</p>`
+      },
+
+      {
+        command: "What are the key modules of SAP GRC?",
+        text: `<p>Access Control (GRC AC)
+
+Process Control (GRC PC)
+
+Risk Management (GRC RM)
+
+Audit Management</p>`
+      },
+
+      {
+        command: "How does SAP GRC integrate with S/4HANA?",
+        text: `<p>SAP GRC integrates with S/4HANA using RFC connectors, repository synchronization, and workflow integration.
+
+It performs risk analysis, access provisioning, and emergency access monitoring.</p>`
+      },
+
+      {
+        command: "What is Access Risk Analysis (ARA)?",
+        text: `<p>Access Risk Analysis identifies Segregation of Duties conflicts and critical access violations for users, roles, and profiles.</p>`
+      },
+
+      {
+        command: "What is Emergency Access Management (EAM)?",
+        text: `<p>EAM manages Firefighter IDs used for temporary elevated access.
+
+It logs all activities performed during emergency sessions for audit review.</p>`
+      },
+
+      {
+        command: "What is Business Role Management (BRM)?",
+        text: `<p>BRM manages the lifecycle of roles including creation, approval, versioning, and provisioning with proper governance.</p>`
+      },
+
+      {
+        command: "What is Access Request Management (ARM)?",
+        text: `<p>ARM automates user provisioning with approval workflows, risk analysis, and audit tracking.</p>`
+      },
+
+      {
+        command: "What is MSMP in SAP GRC?",
+        text: `<p>MSMP (Multi-Stage Multi-Path) controls workflow routing logic and approval paths in GRC access requests.</p>`
+      },
+
+      {
+        command: "How do you configure workflow in SAP GRC?",
+        text: `<p>Define stages → Assign approvers → Configure MSMP routing rules → Activate workflow → Test approval process.</p>`
+      },
+
+      {
+        command: "Common workflow issues in GRC?",
+        text: `<p>Workflow stuck in approval.
+
+Missing approvers.
+
+Incorrect routing configuration.
+
+Agent determination errors.</p>`
+      },
+
+      {
+        command: "How do you troubleshoot user provisioning failures in GRC?",
+        text: `<p>Check provisioning logs.
+
+Verify connector configuration.
+
+Test RFC in SM59.
+
+Re-run repository sync.
+
+Check role mapping.</p>`
+      },
+
+      {
+        command: "How do you resolve Firefighter log sync failure?",
+        text: `<p>Check background jobs.
+
+Verify RFC connectivity.
+
+Validate controller assignment.
+
+Review log sync programs.</p>`
+      },
+
+      {
+        command: "How do you perform User Access Review (UAR)?",
+        text: `<p>Extract user-role data.
+
+Run risk analysis.
+
+Send review to business owners.
+
+Remove unnecessary access.
+
+Document approval for audit compliance.</p>`
+      },
+
+      {
+        command: "How do you handle false positive SoD violations?",
+        text: `<p>Review rule set configuration.
+
+Validate function mapping.
+
+Adjust role design.
+
+Re-run risk simulation.</p>`
+      },
+
+      {
+        command: "How do you update rule sets in SAP GRC?",
+        text: `<p>Modify risk definitions.
+
+Update functions and actions.
+
+Test in sandbox.
+
+Transport to production carefully.
+
+Re-run risk analysis.</p>`
+      },
+
+      {
+        command: "Impact of changing rule sets in production?",
+        text: `<p>It may affect existing risk results.
+
+Users and roles may show new violations.
+
+Re-evaluation and mitigation may be required.</p>`
+      },
+
+      {
+        command: "What is Risk Mitigation?",
+        text: `<p>Applying compensating controls when SoD conflict cannot be removed.
+
+Includes documented approvals and periodic review.</p>`
+      },
+
+      {
+        command: "How do you enforce SOX compliance in SAP GRC?",
+        text: `<p>Define strict role-based access.
+
+Maintain audit logs.
+
+Perform regular risk analysis.
+
+Conduct periodic access reviews.</p>`
+      },
+
+      {
+        command: "What are common SoD conflicts in S/4HANA?",
+        text: `<p>Vendor creation and payment approval.
+
+User creation and role assignment.
+
+Purchase order creation and invoice approval.</p>`
+      },
+
+      {
+        command: "How do you optimize SAP GRC performance?",
+        text: `<p>Archive old logs.
+
+Clean up unused rule sets.
+
+Optimize background jobs.
+
+Perform regular repository sync.</p>`
+      },
+
+      {
+        command: "How do you troubleshoot MSMP workflow issue?",
+        text: `<p>Check SLG1 logs.
+
+Verify agent determination.
+
+Debug workflow configuration.
+
+Validate stage routing rules.</p>`
+      },
+
+      {
+        command: "What are key monitoring transactions in SAP GRC?",
+        text: `<p>GRAC_USER
+
+GRAC_ROLE
+
+ST22 – Dumps
+
+SM21 – System logs
+
+SM59 – RFC monitoring</p>`
+      },
+
+      {
+        command: "How do you migrate SAP GRC from one landscape to another?",
+        text: `<p>Export rule sets.
+
+Transport configuration.
+
+Reconfigure connectors.
+
+Run repository sync.
+
+Test workflows and provisioning.</p>`
+      },
+
+      {
+        command: "What is Continuous Control Monitoring (CCM)?",
+        text: `<p>CCM automatically detects and reports compliance violations in real-time to reduce risk exposure.</p>`
+      },
+
+      {
+        command: "How do you handle GDPR compliance in SAP GRC?",
+        text: `<p>Restrict access to sensitive data.
+
+Encrypt personal data.
+
+Perform periodic access reviews.
+
+Monitor audit logs.</p>`
+      },
+
+      {
+        command: "What are the consequences of not having SAP GRC?",
+        text: `<p>Unauthorized access.
+
+Fraud risk.
+
+Audit failures.
+
+SOX non-compliance.
+
+Lack of visibility into access risks.</p>`
+      }
+    ]
+  },
 ];
 
 export default commandss;

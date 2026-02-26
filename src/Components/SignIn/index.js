@@ -121,7 +121,7 @@ const SignIn = () => {
   return (
     <React.Fragment>
       <main>
-        <h1>Gallant</h1>
+        <h1>AI Agent</h1>
 
         <div className="main-container">
           <div className="login-container">

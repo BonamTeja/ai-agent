@@ -111,7 +111,7 @@ const SignUp = () => {
       <div className="signup-page">
        
         <div className='signup-container'>
-        <h1>Gallant</h1>
+        <h1>AI Agent</h1>
           <form autoComplete='off' className="signup-form" onSubmit={submitHandler}>
             <input
               type='text'
