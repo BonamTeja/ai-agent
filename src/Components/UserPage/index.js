@@ -2,9 +2,7 @@
 import "./index.css"
 import createDOMPurify from 'dompurify';
 
-import { MdPerson } from "react-icons/md";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { ref, onValue } from "firebase/database";
 import { database } from '../../Firebase';
 import { useParams } from 'react-router-dom';
