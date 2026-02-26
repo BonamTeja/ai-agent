@@ -23,7 +23,7 @@ const UserPage = () => {
 
   const [dataFromDatabase, setDataFromDatabase] = useState('');
   const [dataFromDatabaseMic, setDataFromDatabaseMic] = useState('')
-  const [userDataInfo, setuserDataInfo] = useState({});
+  // const [userDataInfo, setuserDataInfo] = useState({});
 
   useEffect(() => {
     const dataRef = ref(database, `data${userId}`);
@@ -45,9 +45,9 @@ const UserPage = () => {
     const dataInfo = ref(database, `userDataInfo${userId}`);
     const unsubInfo = onValue(dataInfo, (snapshot) => {
       const data = snapshot.val();
-      if (data) {
-        setuserDataInfo(data.userFormData);
-      }
+      // if (data) {
+      //   setuserDataInfo(data.userFormData);
+      // }
     });
 
     // Cleanup listeners when component unmounts to avoid duplicate listeners
@@ -61,7 +61,7 @@ const UserPage = () => {
       }
     };
 
-  }, [userId]);
+  }, []);
 
 
   return (
