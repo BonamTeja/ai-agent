@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useMemo, useRef } from "react";
-import { BsSearch } from "react-icons/bs";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./index.css";
 import { ref, set } from "firebase/database";
@@ -10,17 +9,11 @@ import commandss from "../../data";
 
 const MainPage = () => {
   const userId = localStorage.getItem("userInfo");
-  const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
 
-  const [genPopUp, setGenPopUp] = useState(false);
-  const [userLink, setUserLink] = useState("");
-  const [linkCopied, setLinkCopied] = useState(false);
-  const [buttonsPopUp, setButtonsPopUp] = useState(false);
-  const [skills, setSkills] = useState(["react"]);
+  const [skills] = useState(["react"]);
   const [text, setText] = useState("");
 
-  const eventSourceRef = useRef(null);
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
   useEffect(() => {
@@ -32,8 +25,7 @@ const MainPage = () => {
     axios
       .get("https://gallant-69c58-default-rtdb.firebaseio.com/users.json")
       .then((response) => {
-        const fetchedData = response.data;
-        console.log(fetchedData);
+        console.log(response.data);
       });
   }, [navigate, userId]);
 
@@ -51,11 +43,8 @@ const MainPage = () => {
   const filArray = fil.flatMap((item) => item);
 
   const filteredCommands = useMemo(() => {
-    const term = searchInput.toLowerCase();
-    return filArray.filter((command) =>
-      command?.command?.toLowerCase().includes(term)
-    );
-  }, [filArray, searchInput]);
+    return filArray;
+  }, [filArray]);
 
   const handleSignOut = () => {
     localStorage.removeItem("userInfo");
